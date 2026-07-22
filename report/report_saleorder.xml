@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_motolider" inherit_id="formato_cotizacion.report_saleorder_document_inherit_base" priority="40">
+
+        <!-- ============================================================ -->
+        <!-- LOGO: Moto Líder                                             -->
+        <!-- Coloca el logo en: static/src/img/logo.png                   -->
+        <!-- ============================================================ -->
+        <xpath expr="//img[contains(@src, 'logo')]" position="attributes">
+            <attribute name="src">/formato_cotizacion_motolider/static/src/img/logo.jpg</attribute>
+            <attribute name="style">max-height: 90px; width: auto; display: block;</attribute>
+        </xpath>
+
+        <!-- ============================================================ -->
+        <!-- COLORES: Brand Moto Líder                                    -->
+        <!-- ============================================================ -->
+
+        <!-- Header de tabla -->
+        <xpath expr="//tr[contains(@style, 'background-color')]" position="attributes">
+            <attribute name="style">background-color: #c41e3a; color: white !important; font-weight: bold</attribute>
+        </xpath>
+
+        <!-- Fila total -->
+        <xpath expr="//tr[contains(@style, '#2c3f90')]" position="attributes">
+            <attribute name="style">background-color: #c41e3a; color: white; font-weight: bold;</attribute>
+        </xpath>
+
+        <!-- ============================================================ -->
+        <!-- TABLA: Imagen + Descripción (sin SKU)                        -->
+        <!-- Reemplaza la tabla completa de líneas de producto             -->
+        <!-- ============================================================ -->
+        <xpath expr="//table[contains(@class, 'table-sm')]" position="replace">
+            <table class="table table-sm mt-2" style="border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: #c41e3a; color: white !important; font-weight: bold">
+                        <th class="text-center" style="padding: 8px; border: 1px solid #c41e3a; color: white !important; width: 80px;">Imagen</th>
+                        <th class="text-start" style="padding: 8px; border: 1px solid #c41e3a; color: white !important;">Descripción</th>
+                        <th class="text-end" style="padding: 8px; border: 1px solid #c41e3a; color: white !important;">Cantidad</th>
+                        <th class="text-end" style="padding: 8px; border: 1px solid #c41e3a; color: white !important;">Precio</th>
+                        <th class="text-end" style="padding: 8px; border: 1px solid #c41e3a; color: white !important;">Importe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="doc.order_line" t-as="line">
+                        <!-- Section headers -->
+                        <tr t-if="line.display_type == 'line_section'" style="border-bottom: 2px solid #c41e3a;">
+                            <td colspan="5" style="padding: 8px; font-weight: bold; font-size: 11pt;">
+                                <span t-field="line.name"/>
+                            </td>
+                        </tr>
+                        <!-- Note lines -->
+                        <tr t-if="line.display_type == 'line_note'">
+                            <td colspan="5" style="padding: 4px 8px; font-style: italic;">
+                                <span t-field="line.name"/>
+                            </td>
+                        </tr>
+                        <!-- Product lines -->
+                        <tr t-if="not line.display_type" style="border-bottom: 1px solid #ddd;">
+                            <!-- Imagen del producto -->
+                            <td class="text-center" style="padding: 8px; vertical-align: middle;">
+                                <img t-if="line.product_id.image_128"
+                                     t-att-src="image_data_uri(line.product_id.image_128)"
+                                     style="max-height: 60px; max-width: 70px; object-fit: contain;"/>
+                                <span t-if="not line.product_id.image_128" style="color: #ccc; font-size: 8pt;">Sin imagen</span>
+                            </td>
+                            <!-- Descripción del producto (sin SKU) -->
+                            <td class="text-start" style="padding: 8px; vertical-align: middle;">
+                                <strong t-field="line.product_id.name"/>
+                                <br t-if="line.product_id.description_sale"/>
+                                <small t-if="line.product_id.description_sale"
+                                       t-field="line.product_id.description_sale"
+                                       style="color: #666;"/>
+                            </td>
+                            <!-- Cantidad -->
+                            <td class="text-center" style="padding: 8px; vertical-align: middle;">
+                                <span t-esc="int(line.product_uom_qty)"/>
+                            </td>
+                            <!-- Precio unitario -->
+                            <td class="text-end" style="padding: 8px; vertical-align: middle;">
+                                B/. <span t-field="line.price_unit" t-options='{"widget": "float", "precision": 2}'/>
+                            </td>
+                            <!-- Importe -->
+                            <td class="text-end" style="padding: 8px; vertical-align: middle;">
+                                B/. <span t-field="line.price_subtotal" t-options='{"widget": "float", "precision": 2}'/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </xpath>
+
+    </template>
+</odoo>
