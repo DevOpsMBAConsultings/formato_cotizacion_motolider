@@ -19,13 +19,6 @@
                 <div class="row mb-3">
                     <div class="col-6">
                         <img src="/formato_cotizacion_motolider/static/src/img/logo.jpg" style="max-height: 90px; width: auto; display: block;"/>
-                        <div class="mt-2">
-                            <strong style="font-size: 14pt;"><span t-field="res_company.name"/></strong><br/>
-                            <span t-field="res_company.street"/><br/>
-                            <span t-if="res_company.phone">WhatsApp: <span t-field="res_company.phone"/></span><br t-if="res_company.phone"/>
-                            <span t-if="res_company.email">Correo: <span t-field="res_company.email"/></span><br t-if="res_company.email"/>
-                            <span>RUC: <span t-field="res_company.vat"/><t t-if="res_company.l10n_pa_dv"> DV <span t-field="res_company.l10n_pa_dv"/></t></span>
-                        </div>
                     </div>
                 </div>
 
