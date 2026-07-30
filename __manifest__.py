@@ -15,7 +15,7 @@ Extends the base formato_cotizacion module with:
     'category': 'Sales',
     'author': 'MBA Consultings',
     'website': 'https://mbaconsultings.com',
-    'depends': ['sale', 'facturacion_electronica'],
+    'depends': ['formato_cotizacion'],
     'data': [
         'report/report_saleorder.xml',
     ],

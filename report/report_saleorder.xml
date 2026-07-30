@@ -1,144 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="report_saleorder_motolider" inherit_id="sale.report_saleorder_document" priority="30">
+    <template id="report_saleorder_motolider" inherit_id="formato_cotizacion.report_saleorder_document_inherit_base" priority="40">
 
-        <xpath expr="//*[contains(@t-call, 'layout')]" position="attributes">
-            <attribute name="t-call">web.basic_layout</attribute>
+        <!-- ============================================================ -->
+        <!-- LOGO: Moto Líder                                             -->
+        <!-- Coloca el logo en: static/src/img/logo.png                   -->
+        <!-- ============================================================ -->
+        <xpath expr="//img[contains(@src, 'logo')]" position="attributes">
+            <attribute name="src">/formato_cotizacion_motolider/static/src/img/logo.jpg</attribute>
+            <attribute name="style">max-height: 90px; width: auto; display: block;</attribute>
         </xpath>
 
-        <xpath expr="//t[@t-set='address']" position="replace">
-            <t t-set="address"/>
+        <!-- ============================================================ -->
+        <!-- COLORES: Brand Moto Líder                                    -->
+        <!-- ============================================================ -->
+
+        <!-- Header de tabla -->
+        <xpath expr="//tr[contains(@style, 'background-color')]" position="attributes">
+            <attribute name="style">background-color: #c41e3a; color: white !important; font-weight: bold</attribute>
         </xpath>
 
-        <xpath expr="//div[@class='page']" position="replace">
-            <div class="page" style="font-family: Arial, sans-serif; font-size: 10pt; color: black; padding: 20px;">
+        <!-- Fila total -->
+        <xpath expr="//tr[contains(@style, '#2c3f90')]" position="attributes">
+            <attribute name="style">background-color: #c41e3a; color: white; font-weight: bold;</attribute>
+        </xpath>
 
-                <!-- ============================================================ -->
-                <!-- LOGO: Moto Líder                                             -->
-                <!-- ============================================================ -->
-                <div class="row mb-3">
-                    <div class="col-6">
-                        <img src="/formato_cotizacion_motolider/static/src/img/logo.jpg" style="max-height: 90px; width: auto; display: block;"/>
-                        <div class="mt-2">
-                            <strong style="font-size: 14pt;"><span t-field="res_company.name"/></strong><br/>
-                            <span t-field="res_company.street"/><br/>
-                            <span t-if="res_company.phone">WhatsApp: <span t-field="res_company.phone"/></span><br t-if="res_company.phone"/>
-                            <span t-if="res_company.email">Correo: <span t-field="res_company.email"/></span><br t-if="res_company.email"/>
-                            <span>RUC: <span t-field="res_company.vat"/><t t-if="res_company.dgi_dv"> DV <span t-field="res_company.dgi_dv"/></t></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-4">
-                    <div class="col-6">
-                        <strong style="font-size: 11pt; margin-bottom: 2px; display: block;">Datos del cliente</strong>
-                        <hr style="border-top: 2px solid black; opacity: 1; margin-top: 0px; margin-bottom: 10px;"/>
-                        <strong>Nombre:</strong> <span t-field="doc.partner_id.name"/><br/>
-                        <strong>Contacto:</strong> <span t-field="doc.partner_id.child_ids[0].name" t-if="doc.partner_id.child_ids"/><br/>
-                        <strong>Dirección:</strong> <span t-field="doc.partner_id.street"/><br/>
-                        <strong>Vendedor:</strong> <span t-field="doc.user_id.name"/>
-                    </div>
-
-                    <div class="col-5 offset-1">
-                        <strong style="font-size: 11pt; margin-bottom: 2px; display: block;">Cotización</strong>
-                        <hr style="border-top: 2px solid black; opacity: 1; margin-top: 0px; margin-bottom: 10px;"/>
-                        <strong>Número:</strong> <span t-field="doc.name"/><br/>
-                        <strong>Fecha:</strong> <span t-field="doc.date_order" t-options='{"widget": "date"}'/><br/>
-                        <strong>Expiración:</strong> <span t-field="doc.validity_date"/><br/>
-                        <strong>Condiciones de pago:</strong> <span t-field="doc.payment_term_id.name"/>
-                    </div>
-                </div>
-
-                <div t-if="doc.client_order_ref" class="mt-3 mb-2">
-                    <strong style="font-size: 11pt;"><span t-field="doc.client_order_ref"/></strong>
-                </div>
-
-                <!-- ============================================================ -->
-                <!-- TABLA: Imagen + Descripción (sin SKU)                        -->
-                <!-- ============================================================ -->
-                <table class="table table-sm mt-2" style="border-collapse: collapse;">
-                    <thead>
-                        <tr style="background-color: #c41e3a; color: white !important; font-weight: bold">
-                            <th class="text-center" style="padding: 8px; border: 1px solid #c41e3a; color: white !important; width: 80px;">Imagen</th>
-                            <th class="text-start" style="padding: 8px; border: 1px solid #c41e3a; color: white !important;">Descripción</th>
-                            <th class="text-end" style="padding: 8px; border: 1px solid #c41e3a; color: white !important;">Cantidad</th>
-                            <th class="text-end" style="padding: 8px; border: 1px solid #c41e3a; color: white !important;">Precio</th>
-                            <th class="text-end" style="padding: 8px; border: 1px solid #c41e3a; color: white !important;">Importe</th>
+        <!-- ============================================================ -->
+        <!-- TABLA: Imagen + Descripción (sin SKU)                        -->
+        <!-- Reemplaza la tabla completa de líneas de producto             -->
+        <!-- ============================================================ -->
+        <xpath expr="//table[contains(@class, 'table-sm')]" position="replace">
+            <table class="table table-sm mt-2" style="border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: #c41e3a; color: white !important; font-weight: bold">
+                        <th class="text-center" style="padding: 8px; border: 1px solid #c41e3a; color: white !important; width: 80px;">Imagen</th>
+                        <th class="text-start" style="padding: 8px; border: 1px solid #c41e3a; color: white !important;">Descripción</th>
+                        <th class="text-end" style="padding: 8px; border: 1px solid #c41e3a; color: white !important;">Cantidad</th>
+                        <th class="text-end" style="padding: 8px; border: 1px solid #c41e3a; color: white !important;">Precio</th>
+                        <th class="text-end" style="padding: 8px; border: 1px solid #c41e3a; color: white !important;">Importe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="doc.order_line" t-as="line">
+                        <!-- Section headers -->
+                        <tr t-if="line.display_type == 'line_section'" style="border-bottom: 2px solid #c41e3a;">
+                            <td colspan="5" style="padding: 8px; font-weight: bold; font-size: 11pt;">
+                                <span t-field="line.name"/>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <t t-foreach="doc.order_line" t-as="line">
-                            <!-- Section headers -->
-                            <tr t-if="line.display_type == 'line_section'" style="border-bottom: 2px solid #c41e3a;">
-                                <td colspan="5" style="padding: 8px; font-weight: bold; font-size: 11pt;">
-                                    <span t-field="line.name"/>
-                                </td>
-                            </tr>
-                            <!-- Note lines -->
-                            <tr t-if="line.display_type == 'line_note'">
-                                <td colspan="5" style="padding: 4px 8px; font-style: italic;">
-                                    <span t-field="line.name"/>
-                                </td>
-                            </tr>
-                            <!-- Product lines -->
-                            <tr t-if="not line.display_type" style="border-bottom: 1px solid #ddd;">
-                                <!-- Imagen del producto -->
-                                <td class="text-center" style="padding: 8px; vertical-align: middle;">
-                                    <img t-if="line.product_id.image_128"
-                                         t-att-src="image_data_uri(line.product_id.image_128)"
-                                         style="max-height: 60px; max-width: 70px; object-fit: contain;"/>
-                                    <span t-if="not line.product_id.image_128" style="color: #ccc; font-size: 8pt;">Sin imagen</span>
-                                </td>
-                                <!-- Descripción del producto (sin SKU) -->
-                                <td class="text-start" style="padding: 8px; vertical-align: middle;">
-                                    <strong t-field="line.product_id.name"/>
-                                    <br t-if="line.product_id.description_sale"/>
-                                    <small t-if="line.product_id.description_sale"
-                                           t-field="line.product_id.description_sale"
-                                           style="color: #666;"/>
-                                </td>
-                                <!-- Cantidad -->
-                                <td class="text-center" style="padding: 8px; vertical-align: middle;">
-                                    <span t-esc="int(line.product_uom_qty)"/>
-                                </td>
-                                <!-- Precio unitario -->
-                                <td class="text-end" style="padding: 8px; vertical-align: middle;">
-                                    B/. <span t-field="line.price_unit" t-options='{"widget": "float", "precision": 2}'/>
-                                </td>
-                                <!-- Importe -->
-                                <td class="text-end" style="padding: 8px; vertical-align: middle;">
-                                    B/. <span t-field="line.price_subtotal" t-options='{"widget": "float", "precision": 2}'/>
-                                </td>
-                            </tr>
-                        </t>
-                    </tbody>
-                </table>
-
-                <div class="row justify-content-end mt-3">
-                    <div class="col-5">
-                        <table class="table table-sm">
-                            <tr>
-                                <td class="text-start"><strong>Subtotal</strong></td>
-                                <td class="text-end">B/. <span t-field="doc.amount_untaxed" t-options='{"widget": "float", "precision": 2}'/></td>
-                            </tr>
-                            <tr>
-                                <td class="text-start"><strong>ITBMS 7%</strong></td>
-                                <td class="text-end">B/. <span t-field="doc.amount_tax" t-options='{"widget": "float", "precision": 2}'/></td>
-                            </tr>
-                            <tr style="background-color: #c41e3a; color: white; font-weight: bold;">
-                                <td class="text-start" style="padding: 8px; color: white !important;">TOTAL</td>
-                                <td class="text-end" style="padding: 8px; color: white !important;">B/. <span t-field="doc.amount_total" t-options='{"widget": "float", "precision": 2}'/></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="mt-3" t-if="doc.note">
-                    <strong style="font-size: 10pt; display: block; margin-bottom: 5px;">Términos y condiciones:</strong>
-                    <p t-field="doc.note"/>
-                </div>
-
-            </div>
+                        <!-- Note lines -->
+                        <tr t-if="line.display_type == 'line_note'">
+                            <td colspan="5" style="padding: 4px 8px; font-style: italic;">
+                                <span t-field="line.name"/>
+                            </td>
+                        </tr>
+                        <!-- Product lines -->
+                        <tr t-if="not line.display_type" style="border-bottom: 1px solid #ddd;">
+                            <!-- Imagen del producto -->
+                            <td class="text-center" style="padding: 8px; vertical-align: middle;">
+                                <img t-if="line.product_id.image_128"
+                                     t-att-src="image_data_uri(line.product_id.image_128)"
+                                     style="max-height: 60px; max-width: 70px; object-fit: contain;"/>
+                                <span t-if="not line.product_id.image_128" style="color: #ccc; font-size: 8pt;">Sin imagen</span>
+                            </td>
+                            <!-- Descripción del producto (sin SKU) -->
+                            <td class="text-start" style="padding: 8px; vertical-align: middle;">
+                                <strong t-field="line.product_id.name"/>
+                                <br t-if="line.product_id.description_sale"/>
+                                <small t-if="line.product_id.description_sale"
+                                       t-field="line.product_id.description_sale"
+                                       style="color: #666;"/>
+                            </td>
+                            <!-- Cantidad -->
+                            <td class="text-center" style="padding: 8px; vertical-align: middle;">
+                                <span t-esc="int(line.product_uom_qty)"/>
+                            </td>
+                            <!-- Precio unitario -->
+                            <td class="text-end" style="padding: 8px; vertical-align: middle;">
+                                B/. <span t-field="line.price_unit" t-options='{"widget": "float", "precision": 2}'/>
+                            </td>
+                            <!-- Importe -->
+                            <td class="text-end" style="padding: 8px; vertical-align: middle;">
+                                B/. <span t-field="line.price_subtotal" t-options='{"widget": "float", "precision": 2}'/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
         </xpath>
+
     </template>
 </odoo>
