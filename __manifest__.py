@@ -1,6 +1,6 @@
 {
     'name': 'Formato Cotización Moto Líder',
-    'version': '18.0.1.1.0',
+    'version': '18.0.1.2.0',
     'license': 'LGPL-3',
     'summary': 'Custom Sale Order Report for Moto Líder',
     'description': """
@@ -16,7 +16,7 @@ Standalone quotation report for Moto Líder (no longer depends on formato_cotiza
     'category': 'Sales',
     'author': 'MBA Consultings',
     'website': 'https://mbaconsultings.com',
-    'depends': ['sale', 'facturacion_electronica'],
+    'depends': ['sale', 'mba_pa_base'],
     'data': [
         'report/report_saleorder.xml',
     ],

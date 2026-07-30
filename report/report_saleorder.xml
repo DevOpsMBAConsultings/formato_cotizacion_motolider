@@ -24,7 +24,7 @@
                             <span t-field="res_company.street"/><br/>
                             <span t-if="res_company.phone">WhatsApp: <span t-field="res_company.phone"/></span><br t-if="res_company.phone"/>
                             <span t-if="res_company.email">Correo: <span t-field="res_company.email"/></span><br t-if="res_company.email"/>
-                            <span>RUC: <span t-field="res_company.vat"/><t t-if="res_company.dgi_dv"> DV <span t-field="res_company.dgi_dv"/></t></span>
+                            <span>RUC: <span t-field="res_company.vat"/><t t-if="res_company.l10n_pa_dv"> DV <span t-field="res_company.l10n_pa_dv"/></t></span>
                         </div>
                     </div>
                 </div>
