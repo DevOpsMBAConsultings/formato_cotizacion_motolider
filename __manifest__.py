@@ -1,6 +1,6 @@
 {
     'name': 'Formato Cotización Moto Líder',
-    'version': '18.0.1.5.0',
+    'version': '18.0.1.6.0',
     'license': 'LGPL-3',
     'summary': 'Custom Sale Order Report for Moto Líder',
     'description': """
