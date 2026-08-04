@@ -105,11 +105,24 @@
                             </tr>
                         </t>
                     </tbody>
+                    <tfoot>
+                        <tr style="border-top: 2px solid #c41e3a; font-weight: bold; background-color: #f8f9fa;">
+                            <td colspan="2" class="text-end" style="padding: 8px;"><strong>Total Unidades:</strong></td>
+                            <td class="text-center" style="padding: 8px;">
+                                <strong><span t-esc="int(doc.total_qty)"/></strong>
+                            </td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </tfoot>
                 </table>
 
                 <div class="row justify-content-end mt-3">
                     <div class="col-5">
                         <table class="table table-sm">
+                            <tr>
+                                <td class="text-start"><strong>Total Unidades</strong></td>
+                                <td class="text-end"><span t-esc="int(doc.total_qty)"/></td>
+                            </tr>
                             <tr>
                                 <td class="text-start"><strong>Subtotal</strong></td>
                                 <td class="text-end">B/. <span t-field="doc.amount_untaxed" t-options='{"widget": "float", "precision": 2}'/></td>
